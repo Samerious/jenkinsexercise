@@ -33,6 +33,7 @@ if [ $didgrepsucceed == 1 ]
 then
   sudo sed -E -i s/HTTP\_PORT\=[0-9]+/HTTP\_PORT\=8000/ /etc/default/jenkins # This paired with the if command will replace any port number that isnt 8000
   echo "Updating listening port to 8000 and restarting Jenkins"
+  sleep 60 #honestly instead of doing a cheesey sleep command here I should check if the program is running and wait for it to be running then restart Easy fix to a restart for port change
   sudo systemctl restart jenkins #restarting jenkins here to make sure the config is imported into the app
 elif [ $didgrepsucceed == 0 ] #If the port is already do not restart to avoid any interruptions
 then
