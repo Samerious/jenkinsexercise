@@ -2,6 +2,7 @@
 
 echo "Update apt"
 sudo apt update > /dev/null 2>&1 #Removing any extraneous output that I do not believe is neccesary This is seens everal times 
+dpkg --list | grep -i openjdk-11 > /dev/null 2>&1
 isjava11installed=$?
 if [ $isjava11installed == 0 ]
 then
@@ -11,7 +12,6 @@ then
   echo "Installing java"
   sudo apt install openjdk-11-jdk -y > /dev/null 2>&1
 fi
-dpkg --list | grep -i openjdk-11 > /dev/null 2>&1
 echo "Adding keys to apt and new repo."
 wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add - #Idempotent will not keep adding  same key
 sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list' #idempotent will rewrite repo but does not matter
